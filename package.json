@@ -1,0 +1,39 @@
+{
+  "name": "dsh-researchly",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@11.28.5",
+  "type": "module",
+  "main": "./lib/index.js",
+  "exports": "./lib/index.js",
+  "files": ["lib", "cordis.yml"],
+  "engines": {
+    "node": ">=24.9.0",
+    "dsh": "^0.2.2-rc.1"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.yml"
+    }
+  },
+  "scripts": {
+    "build": "tsdown --config-loader native",
+    "prepare": "pnpm run build",
+    "test": "node --experimental-transform-types --test --test-isolation=none src/*.test.ts",
+    "test:state": "node --experimental-strip-types --test --test-isolation=none src/state.test.ts"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "~4.1.0",
+    "@deepseek-ai/dsh-agent": "^0.2.2-rc.1",
+    "@deepseek-ai/dsh-system-prompt": "^0.2.2-rc.1",
+    "@deepseek-ai/dsh-tools": "^0.2.2-rc.1"
+  },
+  "devDependencies": {
+    "@deepseek-ai/cordis": "4.1.0",
+    "@deepseek-ai/dsh-agent": "0.2.2-rc.1",
+    "@deepseek-ai/dsh-system-prompt": "0.2.2-rc.1",
+    "@deepseek-ai/dsh-tools": "0.2.2-rc.1",
+    "tsdown": "0.22.2"
+  },
+  "license": "MIT"
+}

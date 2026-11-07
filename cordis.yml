@@ -1,0 +1,4 @@
+# Installation layer: resolve the package's built entry point.
+- insert:
+    - id: researchly
+      name: dsh-researchly
