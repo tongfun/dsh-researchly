@@ -22,16 +22,16 @@
     "test:state": "node --experimental-strip-types --test --test-isolation=none src/state.test.ts"
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "~4.1.0",
-    "@deepseek-ai/dsh-agent": "^0.2.2-rc.1",
-    "@deepseek-ai/dsh-system-prompt": "^0.2.2-rc.1",
-    "@deepseek-ai/dsh-tools": "^0.2.2-rc.1"
+    "@deepseek-ai/cordis": "~4.1.0 || ~4.2.0-alpha.1",
+    "@deepseek-ai/dsh-agent": "^0.2.2-rc.1 || ^0.2.3-alpha.2",
+    "@deepseek-ai/dsh-system-prompt": "^0.2.2-rc.1 || ^0.2.3-alpha.2",
+    "@deepseek-ai/dsh-tools": "^0.2.2-rc.1 || ^0.2.3-alpha.2"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "4.1.0",
-    "@deepseek-ai/dsh-agent": "0.2.2-rc.1",
-    "@deepseek-ai/dsh-system-prompt": "0.2.2-rc.1",
-    "@deepseek-ai/dsh-tools": "0.2.2-rc.1",
+    "@deepseek-ai/cordis": "4.2.0-alpha.1",
+    "@deepseek-ai/dsh-agent": "0.2.3-alpha.2",
+    "@deepseek-ai/dsh-system-prompt": "0.2.3-alpha.2",
+    "@deepseek-ai/dsh-tools": "0.2.3-alpha.2",
     "tsdown": "0.22.2"
   },
   "license": "MIT"

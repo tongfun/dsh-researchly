@@ -47,6 +47,12 @@ The runtime context provides the detailed instructions for whichever phase is cu
 ## Workflow tool protocol
 
 - Call \`${TOOL_NAME}\` with action \`start\` before working on a research problem.
+- After start succeeds, use the file tools to write one Markdown log in the session working directory at \`research-logs/<short_problem_title>.md\`. Choose an unused filename (add a numeric suffix if needed) and keep that path for the whole problem.
+- Start the file with the problem as its title and exactly these four H2 headings in order, one per phase:
+${PHASES.map(phase => `## ${PHASE_TITLES[phase]}`).join('\n')}
+- Write the log as brief research notes, using keywords and short phrases where helpful. Focus on details worth revisiting.
+- Before phase_complete, use a targeted file edit to append the current phase's findings at the end of its section. Before reopen, record the obstruction or failed check, its cause and the target phase in the section you are leaving. On a repeat visit, append a revision under the existing heading and preserve earlier entries.
+- Wait for the file tool to confirm the log update before calling phase_complete or reopen. If writing fails, keep the current phase active and resolve the error before continuing.
 - Call action \`phase_complete\` with the current \`phase\` only after it is genuinely finished, in the order: understand, plan, execute, look_back.
 - If execution is obstructed, call action \`reopen\` with phase \`plan\` before revising the plan.
 - If a check fails, call action \`reopen\` with phase \`execute\` for problems within the existing plan, or \`plan\` for problems with the plan itself. Explain the cause in your response. Do not mark the failed phase complete.
@@ -148,7 +154,7 @@ export function apply(ctx: Context): void {
     agent.steer({
       content: [{
         type: 'text',
-        text: `The research workflow is still active. Work on "${PHASE_TITLES[phase]}" and call ${TOOL_NAME} with action "phase_complete" only when it is finished. If execution is obstructed, reopen "plan"; if a check fails, reopen "execute" or "plan" according to the cause. Do not mark a failed phase complete. Use action "abandon" only if the user has explicitly stopped this problem.`,
+        text: `The research workflow is still active. Finish "${PHASE_TITLES[phase]}", save its findings in the corresponding log section, then call ${TOOL_NAME} with action "phase_complete" after the file tool confirms success. If execution is obstructed or a check fails, first save the reason and target phase in this section, then reopen "plan" or "execute" as appropriate. Use action "abandon" only if the user has explicitly stopped this problem.`,
       }],
       source: { kind: 'plugin', plugin: name },
     })

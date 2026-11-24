@@ -62,6 +62,20 @@ async function advanceTo(f: ReturnType<typeof fixture>, phase: PhaseId) {
   }
 }
 
+test('the active workflow specifies one log with four phase sections and save-before-transition rules', async () => {
+  const f = fixture()
+  await advanceTo(f, 'execute')
+  const context = f.context()
+  assert.match(context, /session working directory at `research-logs\//)
+  const headings = PHASES.map(phase => `## ${PHASE_TITLES[phase]}`)
+  assert.ok(context.includes(headings.join('\n')))
+  assert.match(context, /Before reopen, record the obstruction or failed check/)
+  assert.match(context, /append a revision under the existing heading/)
+  assert.match(context, /If writing fails, keep the current phase active/)
+  f.stop()
+  assert.match(JSON.stringify(f.steering), /after the file tool confirms success/)
+})
+
 test('tool progression supplies the guidance of the current phase and permits finishing only at the end', async () => {
   const f = fixture()
   assert.equal(f.context(), '')

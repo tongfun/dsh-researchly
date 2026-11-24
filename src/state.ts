@@ -34,7 +34,8 @@ export const PHASE_GUIDANCE: Readonly<Record<PhaseId, string>> = {
   signature, index order, coefficient conventions, and branch choices.
 - Decide whether the condition is sufficient, insufficient, redundant, or
   contradictory. If it is insufficient, say exactly what is missing.
-- Use search and reference tools when definitions or conventions are uncertain.`,
+- Use search and reference tools when definitions or conventions are uncertain.
+- In the log, state the unknown, the given data, and the assumptions or conventions that affect the answer.`,
 
   plan: `## Phase: Devising a plan
 
@@ -53,18 +54,21 @@ export const PHASE_GUIDANCE: Readonly<Record<PhaseId, string>> = {
   problem: simplify, specialise, generalise, relax part of the condition,
   change representation, or extract a transferable result.
 - Delegate independent exploration of candidate methods to focused subagents
-  when useful.`,
+  when useful.
+- In the log, describe the chosen method, why it applies, and its key assumptions.
+  For a revised plan, explain what changed and why.`,
 
   execute: `## Phase: Carrying out, checking, and revising
 
 1. Carry out the plan and check why each step is valid. A formal proof is not
    necessary for every step; provide further justification when validity is unclear.
-2. If an obstruction prevents completing the calculation, identify it and call
+2. If an obstruction prevents completing the calculation, record it in the execution log section before calling
    research_workflow with action "reopen" and phase "plan". Do not mark execute
    complete when the calculation cannot be completed.
 3. Revise the plan in Step 2, then complete plan before resuming execution.
 - Use computation tools for symbolic or numerical work, and delegate independent
-  calculations to focused subagents when helpful.`,
+  calculations to focused subagents when helpful.
+- In the log, record the essential derivation or computation and the result obtained so far.`,
 
   look_back: `## Phase: Looking back
 
@@ -81,8 +85,9 @@ export const PHASE_GUIDANCE: Readonly<Record<PhaseId, string>> = {
   plan. Examples: non-degenerate perturbation theory was planned, but the energy
   levels are degenerate; a neglected interaction is of the same order as retained
   terms.
-- To return to Step 3 or Step 2, call research_workflow with action "reopen" and
-  phase "execute" or "plan", respectively. Explain the cause in your response.
+- In the log, describe the checks actually performed and their outcomes. If a check fails,
+  record its cause and the phase to revisit before calling research_workflow with action "reopen" and
+  the chosen phase ("execute" or "plan"). Explain the cause in your response.
   Do not complete look_back after a failed check; repeat the affected phases and
   check the corrected result before completing look_back.
 - Use a subagent for an independent verification when a different perspective

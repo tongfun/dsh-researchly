@@ -8,7 +8,13 @@ A DeepSeek Harness plugin that draws on George Pólya’s *How to Solve It* to g
 
 ## What it does
 
-This plugin guides the root agent through a strict, four-stage process for mathematical and physical research, aiming to reduce hallucinations and errors. If execution or review reveals a problem, the agent returns one or two stages to reconsider its approach. Only the problem statement and phase completion markers are kept in memory; research notes, summaries, and revision history are not stored.
+This plugin guides the root agent through a strict, four-stage process for mathematical and physical research, aiming to reduce hallucinations and errors. If execution or review reveals a problem, the agent returns one or two stages to reconsider its approach. The plugin tracks the problem statement and completed phases in memory.
+
+## Research log
+
+After starting the workflow, the root agent creates `research-logs/<short problem title>.md` in the current session’s working directory.
+
+Before completing each phase, the agent appends a summary of its work and conclusions to the corresponding section. If it needs to return to an earlier phase, it records in the current section what blocked progress or why a check failed, and which phase it will revisit. When it revisits a phase, it appends its revisions to that phase’s existing section.
 
 ## The four stages
 
